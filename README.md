@@ -2,9 +2,11 @@
 |Column              |Type    |Options      |
 |--------------------|--------|-------------|
 | nickname           | string | null: false |
-| real_name          | string | null: false |
-| furigana           | string | null: false |
-| birthday           | string | null: false |
+| last_name          | string | null: false |
+| first_name         | string | null: false |
+| last_furigana      | string | null: false |
+| first_furigana     | string | null: false |
+| birthday           | date   | null: false |
 | encrypted_password | string | null: false |
 | email              | string | null: false |
 
@@ -13,41 +15,44 @@ has_many: :items
 has_many: :purchases
 
 ## itemsテーブル
-|Column        |Type    |Options      |
-|--------------|--------|-------------|
-| content      | string | null: false |
-| product_name | string | null: false |
-| explanation  | string | null: false |
-| category     | string | null: false |
-| status       | string | null: false |
-| delivery_fee | string | null: false |
-| shipper      | string | null: false |
-| days         | string | null: false |
-| price        | string | null: false |
+|Column           |Type        |Options                         |
+|-----------------|------------|--------------------------------|
+| image           | string     | null: false                    |
+| product_name    | string     | null: false                    |
+| explanation     | string     | null: false                    |
+| category_id     | integer    | null: false                    |
+| status_id       | integer    | null: false                    |
+| delivery_fee_id | integer    | null: false                    |
+| prefecture_id   | integer    | null: false                    |
+| day_id          | integer    | null: false                    |
+| price           | integer    | null: false                    |
+| user_id         | references | null: false, foreign_key: true |
 
 ### Association
-has_many: :purchases
+has_one: :purchase
 belongs_to: :user
 
 ## purchasesテーブル
-|Column|Type        |Options|
-|------|------------|-------|
-| user | references |-------|
-| item | references |-------|
+|Column|Type        |Options                         |
+|------|------------|--------------------------------|
+| user | references | null: false, foreign_key: true |
+| item | references | null: false, foreign_key: true |
 
 ### Association
 has_one: :delivery
 belongs_to: :user
 belongs_to: :item
 
-## deliveryテーブル
-|Column        |Type     |Options      |
-|--------------|---------|-------------|
-| postal_code  | integer | null: false |
-| prefectures  | string  | null: false |
-| manicipality | string  | null: false |
-| address      | integer | null: false |
-| telephone    | integer | null: false |
+## deliveriesテーブル
+|Column         |Type        |Options                         |
+|---------------|------------|--------------------------------|
+| postal_code   | string     | null: false                    |
+| prefecture_id | integer    | null: false                    |
+| manicipality  | string     | null: false                    |
+| address       | string     | null: false                    |
+| telephone     | string     | null: false                    |
+| building_name | string     | null: false                    |
+| purchase_id   | references | null: false, foreign_key: true |
 
 ### Association
 belongs_to: :purchase
