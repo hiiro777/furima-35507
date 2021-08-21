@@ -1,14 +1,14 @@
 ## usersテーブル
-|Column              |Type    |Options      |
-|--------------------|--------|-------------|
-| nickname           | string | null: false |
-| last_name          | string | null: false |
-| first_name         | string | null: false |
-| last_furigana      | string | null: false |
-| first_furigana     | string | null: false |
-| birthday           | date   | null: false |
-| encrypted_password | string | null: false |
-| email              | string | null: false |
+|Column              |Type    |Options                    |
+|--------------------|--------|---------------------------|
+| nickname           | string | null: false               |
+| last_name          | string | null: false               |
+| first_name         | string | null: false               |
+| last_furigana      | string | null: false               |
+| first_furigana     | string | null: false               |
+| birthday           | date   | null: false               |
+| encrypted_password | string | null: false               |
+| email              | string | null: false, unique: true |
 
 ### Association
 has_many: :items
@@ -17,16 +17,15 @@ has_many: :purchases
 ## itemsテーブル
 |Column           |Type        |Options                         |
 |-----------------|------------|--------------------------------|
-| image           | string     | null: false                    |
 | product_name    | string     | null: false                    |
-| explanation     | string     | null: false                    |
+| explanation     | text       | null: false                    |
 | category_id     | integer    | null: false                    |
 | status_id       | integer    | null: false                    |
 | delivery_fee_id | integer    | null: false                    |
 | prefecture_id   | integer    | null: false                    |
-| day_id          | integer    | null: false                    |
+| shipping_day_id | integer    | null: false                    |
 | price           | integer    | null: false                    |
-| user_id         | references | null: false, foreign_key: true |
+| user            | references | null: false, foreign_key: true |
 
 ### Association
 has_one: :purchase
@@ -51,8 +50,8 @@ belongs_to: :item
 | manicipality  | string     | null: false                    |
 | address       | string     | null: false                    |
 | telephone     | string     | null: false                    |
-| building_name | string     | null: false                    |
-| purchase_id   | references | null: false, foreign_key: true |
+| building_name | string     |                                |
+| purchase      | references | null: false, foreign_key: true |
 
 ### Association
 belongs_to: :purchase
